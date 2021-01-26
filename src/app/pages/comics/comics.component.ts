@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { ComicsService } from 'src/app/_service/comics.service';
 
 @Component({
   selector: 'app-comics',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComicsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private comicService:ComicsService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
