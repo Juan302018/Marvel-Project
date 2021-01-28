@@ -12,6 +12,10 @@ import { PersonajesComponent } from './pages/personajes/personajes.component';
 import { ComicsComponent } from './pages/comics/comics.component';
 import { PeliculasComponent } from './pages/peliculas/peliculas.component';
 import { HomeComponent } from './pages/home/home.component';
+import { CaracteristicasComponent } from './pages/personajes/caracteristicas/caracteristicas.component';
+import { ComicdescComponent } from './pages/comics/comicdesc/comicdesc.component';
+import { PeliculadescComponent } from './pages/peliculas/peliculadesc/peliculadesc.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,10 @@ import { HomeComponent } from './pages/home/home.component';
     PersonajesComponent,
     ComicsComponent,
     PeliculasComponent,
-    HomeComponent
+    HomeComponent,
+    CaracteristicasComponent,
+    ComicdescComponent,
+    PeliculadescComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +36,8 @@ import { HomeComponent } from './pages/home/home.component';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    MatListModule
+    MatListModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
