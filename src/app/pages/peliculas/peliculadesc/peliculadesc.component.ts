@@ -12,8 +12,10 @@ export class PeliculadescComponent implements OnInit {
   constructor(private peliculasService:PeliculasService) { }
 
   ngOnInit() {
-    this.peliculasService.listarPorId(this.pelicula.idPelicula)
-    .subscribe(data => {this.pelicula = data})
+   this.encontrarPeliculas();
   }
-
+  encontrarPeliculas(){
+  this.peliculasService.listarPorId(this.pelicula.idPelicula)
+  .subscribe(data => {this.pelicula = data})
+}
 }
