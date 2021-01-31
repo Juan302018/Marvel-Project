@@ -12,11 +12,13 @@ export class ComicsService {
   ComicCambio = new Subject<Comic[]>();
   mensajeCambio = new Subject<string>();
   url: string = `${environment.HOST}/comic`;
+
   constructor(private http: HttpClient) { }
+
   listar() {
     return this.http.get<Comic[]>(this.url);
   }
-  listarPorId(idComic:number){
+  listarPorId(idComic: number){
     return this.http.get<Comic>(`${this.url}/${idComic}`);
   }
 

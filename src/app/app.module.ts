@@ -4,6 +4,7 @@ import { MaterialModule } from './_material/material.module';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { CaracteristicasComponent } from './pages/personajes/caracteristicas/car
 import { ComicdescComponent } from './pages/comics/comicdesc/comicdesc.component';
 import { PeliculadescComponent } from './pages/peliculas/peliculadesc/peliculadesc.component';
 import { MatCardModule } from '@angular/material/card';
+import { BannerComponent } from './pages/home/banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +28,15 @@ import { MatCardModule } from '@angular/material/card';
     HomeComponent,
     CaracteristicasComponent,
     ComicdescComponent,
-    PeliculadescComponent
+    PeliculadescComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,

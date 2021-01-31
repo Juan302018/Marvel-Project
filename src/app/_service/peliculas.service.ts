@@ -13,13 +13,14 @@ export class PeliculasService {
   mensajeCambio = new Subject<string>();
 
   url: string = `${environment.HOST}/pelicula`;
+
   constructor(private http: HttpClient) { }
 
   listar() {
     return this.http.get<Pelicula[]>(this.url);
   }
 
-  listarPorId(idPelicula:number){
+  listarPorId(idPelicula: number) {
     return this.http.get<Pelicula>(`${this.url}/${idPelicula}`);
   }
 

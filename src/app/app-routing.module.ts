@@ -1,19 +1,31 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { ComicsComponent } from './pages/comics/comics.component';
+import { BannerComponent } from './pages/home/banner/banner.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PeliculasComponent } from './pages/peliculas/peliculas.component';
+import { CaracteristicasComponent } from './pages/personajes/caracteristicas/caracteristicas.component';
 import { PersonajesComponent } from './pages/personajes/personajes.component';
 
 
 const routes: Routes = [
 
   {
-    path: 'inicio', component: HomeComponent,
-    pathMatch: 'full'
+    path: '', redirectTo: 'home', pathMatch: 'full'
   },
+
   {
-    path: 'personajes', component: PersonajesComponent
+    path: 'home', component: HomeComponent,
+    children: [
+      { path: 'banner', component: BannerComponent}
+    ]
+  },
+
+  {
+    path: 'personajes', component: PersonajesComponent,
+    children: [
+      { path: 'caracteristicas/:id', component: CaracteristicasComponent}
+    ]
   },
 
   {

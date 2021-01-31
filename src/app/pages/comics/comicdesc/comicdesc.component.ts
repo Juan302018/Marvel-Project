@@ -8,14 +8,18 @@ import { ComicsService } from 'src/app/_service/comics.service';
   styleUrls: ['./comicdesc.component.css']
 })
 export class ComicdescComponent implements OnInit {
-  comic:Comic;
-  constructor(private comicsService:ComicsService) { }
+
+  comic: Comic;
+
+  constructor(private comicsService: ComicsService) { }
 
   ngOnInit() {
     this.encontrarComic();
   }
-  encontrarComic(){
+  encontrarComic() {
        this.comicsService.listarPorId(this.comic.idComic)
-       .subscribe(data => {this.comic = data})
+       .subscribe(data => {
+         this.comic = data;
+      });
   }
 }

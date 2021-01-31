@@ -1,5 +1,5 @@
-export class SuperHeroe
-{
-idSuperHeroe:number;
-nombreSuperHeroe:string;
+export class SuperHeroe {
+
+  idSuperHeroe: number;
+  nombreSuperHeroe: string;
 }
