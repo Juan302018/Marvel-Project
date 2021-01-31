@@ -9,6 +9,11 @@ import { Pelicula } from 'src/app/_model/pelicula';
 })
 export class PeliculasComponent implements OnInit {
   peliculas:Pelicula[];
+  nombrePeli:string;
+  argumento:string;
+  secuela:boolean;
+  dataSource = new Array();
+
   constructor(private peliculasService: PeliculasService,public snackBar: MatSnackBar) { }
   ngOnInit() {
     this.listarPeliculas();
@@ -16,7 +21,21 @@ export class PeliculasComponent implements OnInit {
   
   listarPeliculas(){
     this.peliculasService.listar()
-    .subscribe(data => {this.peliculas = data})  }
+    .subscribe(data => {
+      this.peliculas = data
+    this.peliculas.forEach(lista=>{
+      this.nombrePeli = lista.nombrePelicula;
+      this.argumento = lista.argumentoPelicula;
+      this.secuela = lista.esSecuela;
+    });
+   
+  });  }
 
+  filtrar(event){
+    const texto = event.target.value.toString().toLowerCase().trim();
+    this.peliculas = [];
+    this.dataSource = this.peliculas;
+    this.dataSource.filter = texto;
+  }
 
 }

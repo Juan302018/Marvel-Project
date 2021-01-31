@@ -4,5 +4,4 @@ export class Comic {
     nombreComic: string;
     tomoComic: string;
     argumentoComic: string;
-
 }

@@ -1,0 +1,14 @@
+<div class="contenedor">
+  <mat-card class="tarjeta" *ngIf="comics != null">
+    <mat-card-header>
+      <mat-card-title>Nombre Pelicula:{{ nomComic }}</mat-card-title>
+      <mat-card-subtitle>Tomo:{{ tomComic }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Argumento:{{ argComic }}</p>
+    </mat-card-content>
+    <!-- <mat-card-actions>
+        <button mat-flat-button (click)="recargar()" color="primary">Otra persona?</button>
+      </mat-card-actions>-->
+  </mat-card>
+</div>
