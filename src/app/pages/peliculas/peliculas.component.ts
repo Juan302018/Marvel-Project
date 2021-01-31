@@ -22,12 +22,13 @@ export class PeliculasComponent implements OnInit {
   listarPeliculas(){
     this.peliculasService.listar()
     .subscribe(data => {
+      this.peliculas = data
     this.peliculas.forEach(lista=>{
       this.nombrePeli = lista.nombrePelicula;
       this.argumento = lista.argumentoPelicula;
       this.secuela = lista.esSecuela;
     });
-    this.peliculas = data
+   
   });  }
 
   filtrar(event){

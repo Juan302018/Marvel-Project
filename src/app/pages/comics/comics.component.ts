@@ -23,12 +23,13 @@ export class ComicsComponent implements OnInit {
    listarComics(){
      this.comicService.listar()
      .subscribe(data => {
+      this.comics = data
     this.comics.forEach(lista =>{
       this.nomComic = lista.nombreComic;
       this.tomComic = lista.tomoComic;
       this.argComic = lista.argumentoComic;
     });
-    this.comics = data
+ 
 });
 }
 filtrar(event){
