@@ -9,7 +9,6 @@ import { PersonajesComponent } from './pages/personajes/personajes.component';
 
 
 const routes: Routes = [
-
   {
     path: '', redirectTo: 'home', pathMatch: 'full'
   },

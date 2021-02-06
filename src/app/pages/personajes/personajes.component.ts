@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { HeroesEnum } from "src/app/Enum/heroes.enum";
 import { SuperHeroe } from "src/app/_model/superHerore";
 import { PersonajesService } from "src/app/_service/personajes.service";
 import { } from "rxjs/operators";
+import { Subscription } from 'rxjs';
 import swal from "sweetalert2";
 
 @Component({
@@ -10,30 +11,36 @@ import swal from "sweetalert2";
   templateUrl: "./personajes.component.html",
   styleUrls: ["./personajes.component.css"],
 })
-export class PersonajesComponent implements OnInit {
+export class PersonajesComponent implements OnInit, OnDestroy {
   constructor(private personajesService: PersonajesService) {}
 
-  dataSH: SuperHeroe[];
-  arrayBusHereo = [];
-  arrayHereoTotal = [];
+  public dataSH: SuperHeroe[];
+  public arrayBusHereo = [];
+  public arrayHeroeFiltrado = [];
+  public arrayHeroeTotal = [];
 
-  id: number;
-  idSH: number;
-  nombreSH: string;
+  public volver: boolean = false;
+
+  public id: number;
+  public idSH: number;
+  public nombreSH: string;
+
+  private listarHeroesSupcription: Subscription;
 
   ngOnInit() {
     this.listarPersonajes();
   }
 
   listarPersonajes() {
-    this.personajesService.listar().subscribe((p) => {
+    this.listarHeroesSupcription = this.personajesService.listar().subscribe((p) => {
       this.dataSH = p;
       this.dataSH.forEach((sh) => {
-        console.log("sh: ", sh);
+        console.log('sh: ', sh);
         this.nombreSH = sh.nombreSuperHeroe;
-        console.log("nombreSH: ", this.nombreSH);
+        console.log('nombreSH: ', this.nombreSH);
       });
-      this.arrayHereoTotal.push(this.dataSH);
+      this.arrayHeroeFiltrado = [... this.dataSH];
+      this.arrayHeroeTotal = [... this.dataSH];
     });
   }
 
@@ -56,12 +63,19 @@ export class PersonajesComponent implements OnInit {
 
   filtrar(evento) {
     const busquedaHeroe = evento.target.value.toString().toLowerCase().trim();
-    this.arrayBusHereo = [];
-    this.arrayHereoTotal.forEach(h => {
-      if (h.nombreSuperHeroe.toLowerCase().indexOf(busquedaHeroe) !== -1) {
-        this.arrayBusHereo.push(h);
+
+    this.arrayHeroeFiltrado = [];
+    this.arrayHeroeTotal.forEach(item => {
+      if (item.nombreSuperHeroe.toLowerCase().indexOf(busquedaHeroe) !== -1 ||
+      busquedaHeroe === ''
+      ) {
+        this.arrayHeroeFiltrado.push(item);
       }
     });
+  }
+
+  retroceder() {
+    this.volver = false;
   }
 
   SuperHeroeSel(id: number) {
@@ -167,4 +181,11 @@ export class PersonajesComponent implements OnInit {
     }
     return this.idSH;
   }
+
+  ngOnDestroy(): void {
+    if (this.listarHeroesSupcription) {
+      this.listarHeroesSupcription.unsubscribe();
+    }
+  }
+
 }
