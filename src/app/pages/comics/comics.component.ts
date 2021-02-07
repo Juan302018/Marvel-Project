@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
-import { ObjectUnsubscribedError } from "rxjs";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { MatPaginator, MatSnackBar, MatSort, MatTableDataSource } from "@angular/material";
+import { ObjectUnsubscribedError, Observable } from "rxjs";
 import { Comic } from "src/app/_model/comic";
 import { ComicsService } from "src/app/_service/comics.service";
 
@@ -15,33 +15,32 @@ export class ComicsComponent implements OnInit {
   nomComic: string;
   tomComic: string;
   argComic: string;
-
-  dataSource = new Array();
-
+  dataSource:MatTableDataSource<Comic>;
+  @ViewChild(MatPaginator,{static:true})
+  paginator:MatPaginator;
+  @ViewChild(MatSort,{static:true}) sort: MatSort;
   constructor(
-    private comicService: ComicsService,
-    public snackBar: MatSnackBar
+    private comicService: ComicsService
   ) {}
 
   ngOnInit() {
+    this.comicService.comicCambio.subscribe(data =>{
+    this.dataSource  = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+      });
     this.listarComics();
   }
 
   listarComics() {
     this.comicService.listar().subscribe((data) => {
       this.comics = data;
-      this.comics.forEach((lista) => {
-        this.nomComic = lista.nombreComic;
-        this.tomComic = lista.tomoComic;
-        this.argComic = lista.argumentoComic;
-      });
+      console.log(data);
+     
     });
   }
 
-  filtrar(event) {
-    const texto = event.target.value.toString().toLowerCase().trim();
-    this.comics = [];
-    this.dataSource = this.comics;
-    this.dataSource.filter = texto;
+  filtrar(valor:string){
+    this.dataSource.filter = valor.trim().toLowerCase();
   }
 }
