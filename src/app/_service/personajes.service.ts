@@ -13,7 +13,7 @@ export class PersonajesService {
   PersonajeCambio = new Subject<SuperHeroe[]>();
   mensajeCambio = new Subject<string>();
 
-  url: string = `${environment.HOST}/superheroe`;
+  url: string = `${environment.HOST}/superHeroe`;
 
   constructor(private http: HttpClient) {}
 

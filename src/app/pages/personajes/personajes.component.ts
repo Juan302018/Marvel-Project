@@ -1,18 +1,21 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { HeroesEnum } from "src/app/Enum/heroes.enum";
-import { SuperHeroe } from "src/app/_model/superHerore";
-import { PersonajesService } from "src/app/_service/personajes.service";
-import { } from "rxjs/operators";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HeroesEnum } from 'src/app/Enum/heroes.enum';
+import { SuperHeroe } from 'src/app/_model/superHerore';
+import { PersonajesService } from 'src/app/_service/personajes.service';
+import {ToastrService} from 'ngx-toastr';
+import { } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import swal from "sweetalert2";
+import swal from 'sweetalert2';
 
 @Component({
-  selector: "app-personajes",
-  templateUrl: "./personajes.component.html",
-  styleUrls: ["./personajes.component.css"],
+  selector: 'app-personajes',
+  templateUrl: './personajes.component.html',
+  styleUrls: ['./personajes.component.css'],
 })
 export class PersonajesComponent implements OnInit, OnDestroy {
-  constructor(private personajesService: PersonajesService) {}
+  constructor(
+    private personajesService: PersonajesService,
+    private toastrService: ToastrService) {}
 
   public dataSH: SuperHeroe[];
   public arrayBusHereo = [];
@@ -26,6 +29,7 @@ export class PersonajesComponent implements OnInit, OnDestroy {
   public nombreSH: string;
 
   private listarHeroesSupcription: Subscription;
+  private listaIdHeroeSupcription: Subscription;
 
   ngOnInit() {
     this.listarPersonajes();
@@ -34,13 +38,20 @@ export class PersonajesComponent implements OnInit, OnDestroy {
   listarPersonajes() {
     this.listarHeroesSupcription = this.personajesService.listar().subscribe((p) => {
       this.dataSH = p;
-      this.dataSH.forEach((sh) => {
+      console.log('data', this.dataSH);
+    /*  this.dataSH.forEach((sh) => {
         console.log('sh: ', sh);
         this.nombreSH = sh.nombreSuperHeroe;
         console.log('nombreSH: ', this.nombreSH);
-      });
+      }); */
       this.arrayHeroeFiltrado = [... this.dataSH];
       this.arrayHeroeTotal = [... this.dataSH];
+    });
+  }
+
+  listarPorIdHeroe(id: number) {
+    this.listaIdHeroeSupcription = this.personajesService.listarPorId(this.idSH).subscribe({
+      next: heroes => console.log({ heroes })
     });
   }
 
@@ -48,13 +59,12 @@ export class PersonajesComponent implements OnInit, OnDestroy {
     this.id = evento.value;
     if (this.id !== null && this.id !== undefined) {
       this.SuperHeroeSel(this.id);
-      this.personajesService.listarPorId(this.idSH).subscribe({
-        next: heroes => console.log({ heroes })
-      });
+      swal.close();
+      this.toastrService.success('Proceso generado correctamente!', 'Atención');
     } else {
       swal.fire(
         'Atención',
-        'Problemas para cargar la lista de información!',
+        'Problemas para cargar lista de personajes!',
         'error'
       );
       swal.close();
@@ -179,12 +189,16 @@ export class PersonajesComponent implements OnInit, OnDestroy {
       default:
         break;
     }
-    return this.idSH;
+    const heroeSel = this.idSH;
+    this.listarPorIdHeroe(heroeSel);
   }
 
   ngOnDestroy(): void {
     if (this.listarHeroesSupcription) {
       this.listarHeroesSupcription.unsubscribe();
+    }
+    if (this.listaIdHeroeSupcription) {
+      this.listaIdHeroeSupcription.unsubscribe();
     }
   }
 

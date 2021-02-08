@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatListModule } from '@angular/material/list';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 import { PersonajesComponent } from './pages/personajes/personajes.component';
 import { ComicsComponent } from './pages/comics/comics.component';
 import { PeliculasComponent } from './pages/peliculas/peliculas.component';
@@ -18,6 +19,7 @@ import { ComicdescComponent } from './pages/comics/comicdesc/comicdesc.component
 import { PeliculadescComponent } from './pages/peliculas/peliculadesc/peliculadesc.component';
 import { MatCardModule } from '@angular/material/card';
 import { BannerComponent } from './pages/home/banner/banner.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { BannerComponent } from './pages/home/banner/banner.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
     NgxPaginationModule,
     FormsModule,
