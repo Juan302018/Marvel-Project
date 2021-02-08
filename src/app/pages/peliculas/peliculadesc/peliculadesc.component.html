@@ -1,1 +1,24 @@
-<p>peliculadesc works!</p>
+<form class="example-container" [formGroup]="form" (ngSubmit)="insertarPeliculas()" #frmPelicula="ngForm">
+    
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Nombre de pelicula" required formControlName="nombre">
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width">
+      <input matInput placeholder="Secuela?" required formControlName="secuela">
+  </mat-form-field>
+  
+  <mat-form-field class="example-full-width">
+      <input matInput placeholder="Argumento" required formControlName="argumento">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="frmPelicula.invalid">
+    <mat-icon>done</mat-icon>
+    <span>Aceptar</span> 
+</button>
+
+<button mat-raised-button color="accent" routerLink='/peliculas' type="button">
+    <mat-icon>close</mat-icon>
+    <span>Cancelar</span>
+</button>
+</form>

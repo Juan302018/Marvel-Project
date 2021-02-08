@@ -5,6 +5,7 @@
 .tarjeta {
     min-width: 400px;
     max-width: 600px;
+    margin: 10px;
 }
 
 .contenedor {
