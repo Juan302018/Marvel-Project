@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTableDataSource } from '@angular/material';
 import { PeliculasService } from 'src/app/_service/peliculas.service';
 import { Pelicula } from 'src/app/_model/pelicula';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-peliculas',
   templateUrl: './peliculas.component.html',
@@ -12,7 +13,7 @@ export class PeliculasComponent implements OnInit {
   nombrePeli:string;
   argumento:string;
   secuela:boolean;
-  dataSource = new Array();
+  dataSource: MatTableDataSource<Pelicula>;
 
   constructor(private peliculasService: PeliculasService,public snackBar: MatSnackBar) { }
   ngOnInit() {
@@ -23,19 +24,11 @@ export class PeliculasComponent implements OnInit {
     this.peliculasService.listar()
     .subscribe(data => {
       this.peliculas = data
-    this.peliculas.forEach(lista=>{
-      this.nombrePeli = lista.nombrePelicula;
-      this.argumento = lista.argumentoPelicula;
-      this.secuela = lista.esSecuela;
-    });
-   
+      console.log(data);
   });  }
 
-  filtrar(event){
-    const texto = event.target.value.toString().toLowerCase().trim();
-    this.peliculas = [];
-    this.dataSource = this.peliculas;
-    this.dataSource.filter = texto;
+  filtrar(valor:string){
+    this.dataSource.filter = valor.trim().toLowerCase();
   }
 
 }

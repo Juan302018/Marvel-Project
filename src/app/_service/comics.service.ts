@@ -9,7 +9,7 @@ import { Comic } from '../_model/comic';
 })
 export class ComicsService {
 
-  ComicCambio = new Subject<Comic[]>();
+  comicCambio = new Subject<Comic[]>();
   mensajeCambio = new Subject<string>();
   url: string = `${environment.HOST}/comic`;
 

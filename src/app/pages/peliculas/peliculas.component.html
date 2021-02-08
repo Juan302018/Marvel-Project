@@ -1,14 +1,22 @@
-<div class="contenedor">
-    <mat-card class="tarjeta" *ngIf="peliculas!=null">
+<router-outlet></router-outlet>
+
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar Pelicula">
+  </mat-form-field>
+</div>
+<div class="contenedor" *ngIf="peliculas!=null">
+    <mat-card class="tarjeta" *ngFor="let card of peliculas">
       <mat-card-header>
-        <mat-card-title>Nombre Pelicula:{{nombrePeli}}</mat-card-title>
-        <mat-card-subtitle>Secuela:{{secuela == true?'si':'no'}}</mat-card-subtitle>
+        <mat-card-title>Nombre Pelicula:{{ card.nombrePelicula }}</mat-card-title>
+        <mat-card-subtitle>Secuela:{{card.esSecuela == true?'si':'no'}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
-        <p>Argumento:{{argumento}}</p>
+        <p>Argumento:{{card.argumentoPelicula}}</p>
       </mat-card-content>
      <!-- <mat-card-actions>
         <button mat-flat-button (click)="recargar()" color="primary">Otra persona?</button>
       </mat-card-actions>-->
     </mat-card>
   </div>
+<br>
