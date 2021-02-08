@@ -5,7 +5,7 @@
   </mat-form-field>
 </div>
 <div class="contenedor" *ngIf="comics != null" >
-  <mat-card  class="tarjeta"  *ngFor="let card of comics">
+  <mat-card  class="tarjeta"  *ngFor="let card of comics" >
     <mat-card-header>
       <mat-card-title>Nombre Comic:{{ card.nombreComic }}</mat-card-title>
       <mat-card-subtitle>Tomo:{{ card.tomoComic }}</mat-card-subtitle>
@@ -13,9 +13,9 @@
     <mat-card-content>
       <p>Argumento:{{ card.argumentoComic }}</p>
     </mat-card-content>
-    <!-- <mat-card-actions>
-        <button mat-flat-button (click)="recargar()" color="primary">Otra persona?</button>
-      </mat-card-actions>-->
   </mat-card>
 </div>
+<button mat-fab color="accent" style="float: right; margin-right: 20px" routerLink='/comics/nuevo'>
+  <mat-icon>create</mat-icon>
+</button>
 
