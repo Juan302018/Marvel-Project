@@ -23,8 +23,5 @@ export class ComicsService {
     )
       );
   }
-  encontrarPorId(idComic:number){
-    return this.http.get<Comic>(`${this.url}/${idComic}`);
-    }
 
 }

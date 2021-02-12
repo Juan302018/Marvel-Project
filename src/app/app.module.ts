@@ -15,8 +15,6 @@ import { ComicsComponent } from './pages/comics/comics.component';
 import { PeliculasComponent } from './pages/peliculas/peliculas.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CaracteristicasComponent } from './pages/personajes/caracteristicas/caracteristicas.component';
-import { ComicdescComponent } from './pages/comics/comicdesc/comicdesc.component';
-import { PeliculadescComponent } from './pages/peliculas/peliculadesc/peliculadesc.component';
 import { MatCardModule } from '@angular/material/card';
 import { BannerComponent } from './pages/home/banner/banner.component';
 import { CommonModule } from '@angular/common';
@@ -29,8 +27,6 @@ import { CommonModule } from '@angular/common';
     PeliculasComponent,
     HomeComponent,
     CaracteristicasComponent,
-    ComicdescComponent,
-    PeliculadescComponent,
     BannerComponent
   ],
   imports: [

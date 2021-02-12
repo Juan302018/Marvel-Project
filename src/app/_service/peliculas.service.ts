@@ -24,9 +24,6 @@ export class PeliculasService {
     )
       );
   }
-  encontrarPorId(idPelicula:number) {
-    return this.http.get<Pelicula>(`${this.url}/${idPelicula}`);
-  }
   
 
 }
