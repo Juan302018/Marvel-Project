@@ -1,17 +1,10 @@
-/*.homeNav__container {
-    position: relative;
-    width: 100%;
-    display: none;
-}
-*/
-
 .page__body {
     display: block;
 }
 
 .navigation__container {
     height: 50px;
-    background-color: #202020;
+    background-color: #151515;
 }
 
 .navigation__container--fixed {

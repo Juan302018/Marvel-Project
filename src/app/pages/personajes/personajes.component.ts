@@ -1,12 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HeroesEnum } from 'src/app/Enum/heroes.enum';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SuperHeroe } from 'src/app/_model/superHerore';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { PersonajesService } from 'src/app/_service/personajes.service';
-import {ToastrService} from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import Swiper from 'swiper';
 import swal from 'sweetalert2';
+import { HeroesEnum } from 'src/app/Enum/heroes.enum';
+
 
 @Component({
   selector: 'app-personajes',
@@ -14,53 +15,145 @@ import swal from 'sweetalert2';
   styleUrls: ['./personajes.component.css'],
 })
 export class PersonajesComponent implements OnInit, OnDestroy {
-  constructor(
-    private personajesService: PersonajesService,
-    private toastrService: ToastrService) {}
 
-  public dataSH: SuperHeroe[];
-  public arrayBusHereo = [];
+  public dataSH: SuperHeroe[] = [];
   public arrayHeroeFiltrado = [];
   public arrayHeroeTotal = [];
 
   public volver: boolean = false;
-
+  public validador: boolean = false;
+  public listaHeroes: SuperHeroe;
+  public heroeSel: SuperHeroe;
   public id: number;
   public idSH: number;
-  public heroeSel: SuperHeroe;
-  public nombreSH: string;
   public imgSel: string;
 
   private listarHeroesSupcription: Subscription;
   private listaIdHeroeSupcription: Subscription;
 
+  dataSource: MatTableDataSource<SuperHeroe>;
+  @ViewChild(MatPaginator, { static: true })
+  paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  constructor(
+    private personajesService: PersonajesService,
+    private toastrService: ToastrService
+  ) {
+  }
+
   ngOnInit() {
+    this.personajesService.PersonajeCambio.subscribe((data) => {
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
     this.imgSel = '';
     this.listarPersonajes();
   }
 
   listarPersonajes() {
-    this.listarHeroesSupcription = this.personajesService.listar().pipe(take(1)).subscribe((p) => {
-      this.dataSH = p;
-      console.log('data', this.dataSH);
-    /*  this.dataSH.forEach((sh) => {
-        console.log('sh: ', sh);
-        this.nombreSH = sh.nombreSuperHeroe;
-        console.log('nombreSH: ', this.nombreSH);
-      }); */
-      this.arrayHeroeFiltrado = [... this.dataSH];
-      this.arrayHeroeTotal = [... this.dataSH];
-    });
+    this.validador = false;
+    this.listarHeroesSupcription = this.personajesService
+      .listar()
+      .pipe(take(1))
+      .subscribe(
+        (p) => {
+          p.filter(
+            (datos) =>
+              datos.nombreSuperHeroe !== null && datos.idSuperHeroe > -1
+          );
+          this.dataSH = [];
+          if (p.length > -1) {
+            this.validador = true;
+            p.forEach(l => {
+             l.superHeroe = this.obtenerImgHeroes(l.superHeroe);
+            });
+            this.dataSH = p;
+          } else {
+            swal.fire(
+              'Atención',
+              'No se ha ejecutado la información correctamente!.',
+              'error'
+            );
+          }
+          this.arrayHeroeFiltrado = [...this.dataSH];
+          this.arrayHeroeTotal = [...this.dataSH];
+        },
+        (err) => {
+          console.error('Error: ', err);
+        }
+      );
+  }
+
+  private obtenerImgHeroes(heroe: string): string {
+    let image = '';
+    if (heroe === 'iron man') {
+      image = 'assets/img/fullFace/f_1.jpg';
+    } else if (heroe === 'thor') {
+      image = 'assets/img/fullFace/f_2.jpg';
+    } else if (heroe === 'hulk') {
+      image = 'assets/img/fullFace/f_3.jpg';
+    } else if (heroe === 'vision') {
+      image = 'assets/img/fullFace/f_4.jpg';
+    } else if (heroe === 'black widow') {
+      image = 'assets/img/fullFace/f_5.jpg';
+    } else if (heroe === 'war machine') {
+      image = 'assets/img/fullFace/f_6.jpg';
+    } else if (heroe === 'falcon') {
+      image = 'assets/img/fullFace/f_7.jpg';
+    } else if (heroe === 'black panter') {
+      image = 'assets/img/fullFace/f_8.jpg';
+    } else if (heroe === 'ant man') {
+      image = 'assets/img/fullFace/f_9.jpg';
+    } else if (heroe === 'spider man') {
+      image = 'assets/img/fullFace/f_10.jpg';
+    } else if (heroe === 'winter soldier') {
+      image = 'assets/img/fullFace/f_11.jpg';
+    } else if (heroe === 'capitan america') {
+      image = 'assets/img/fullFace/f_12.jpg';
+    } else if (heroe === 'wanda maximoff') {
+      image = 'assets/img/fullFace/f_13.jpg';
+    } else if (heroe === 'doctor strange') {
+      image = 'assets/img/fullFace/f_14.jpg';
+    } else if (heroe === 'capitan marvel') {
+      image = 'assets/img/fullFace/f_15.jpg';
+    } else if (heroe === 'wolverine') {
+      image = 'assets/img/fullFace/f_16.jpg';
+    } else if (heroe === 'la mole') {
+      image = 'assets/img/fullFace/f_17.jpg';
+    } else if (heroe === 'la antorcha humana') {
+      image = 'assets/img/fullFace/f_18.jpg';
+    } else if (heroe === 'la mujer invisible') {
+      image = 'assets/img/fullFace/f_19.jpg';
+    } else if (heroe === 'el hombre elastico') {
+      image = 'assets/img/fullFace/f_20.jpg';
+    } else if (heroe === 'ciclope') {
+      image = 'assets/img/fullFace/f_21.jpg';
+    } else if (heroe === 'tormenta') {
+      image = 'assets/img/fullFace/f_22.jpg';
+    } else if (heroe === 'jean grey') {
+      image = 'assets/img/fullFace/f_23.jpg';
+    } else if (heroe === 'profesor x') {
+      image = 'assets/img/fullFace/f_24.jpg';
+    }
+    return image;
   }
 
   listarPorIdHeroe(id: number) {
-    this.listaIdHeroeSupcription = this.personajesService.listarPorId(this.idSH).pipe(take(1)).subscribe(heroes => {
+    this.listaIdHeroeSupcription = this.personajesService
+      .listarPorId(this.idSH)
+      .pipe(take(1))
+      .subscribe((heroes) => {
         this.heroeSel = heroes;
-    });
+      });
   }
 
   onSelectChange(evento: any) {
-    this.id = evento.value;
+    this.id = evento.value.filter(
+      (data) =>
+        data.nombreSuperHeroe !== null && data.nombreSuperHeroe !== undefined
+    );
     if (this.id !== null && this.id !== undefined) {
       this.SuperHeroeSel(this.id);
       swal.close();
@@ -77,19 +170,22 @@ export class PersonajesComponent implements OnInit, OnDestroy {
 
   filtrar(evento) {
     const busquedaHeroe = evento.target.value.toString().toLowerCase().trim();
-
     this.arrayHeroeFiltrado = [];
-    this.arrayHeroeTotal.forEach(item => {
-      if (item.nombreSuperHeroe.toLowerCase().indexOf(busquedaHeroe) !== -1 ||
-      busquedaHeroe === ''
+    this.arrayHeroeTotal.forEach((item) => {
+      if (
+        item.nombreSuperHeroe.toLowerCase().indexOf(busquedaHeroe) !== -1 ||
+        busquedaHeroe === ''
       ) {
         this.arrayHeroeFiltrado.push(item);
       }
+      this.dataSH = this.arrayHeroeFiltrado;
     });
   }
 
-  retroceder() {
-    this.volver = false;
+  retroceder(event) {
+    if (event) {
+      this.volver = event;
+    }
   }
 
   SuperHeroeSel(id: number): any {
@@ -233,5 +329,4 @@ export class PersonajesComponent implements OnInit, OnDestroy {
       this.listaIdHeroeSupcription.unsubscribe();
     }
   }
-
 }

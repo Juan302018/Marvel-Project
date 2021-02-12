@@ -1,3 +1,68 @@
-<h1>Super Heroes</h1>
-<br />
-<h3>{{  this.dataSH }}</h3>
+<router-outlet></router-outlet>
+<section class="page__component" data-top-component="open_text" data-page-position="6">
+    <div class="openText openText__left">
+        <div class="openText__columns">
+            <div class="openText__column openText__left">
+                <div class="open-html">
+                    <div class="open-html__content">
+                        <b><h1 class="heroes">Lista de Personajes de Marvel</h1></b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="filter_grid-7" class="page__component page__component--characters page__component--filter_grid section__color__ " data-top-component="filter_grid" data-page-position="8">
+    <div class="full-content">
+        <div class="inlineModuleHeader">
+            <div class="inlineModuleHeader__innerComponent">
+                <div class="typeahead">
+                    <div class="typeahead">
+                        <div class="typeahead__icon">
+                           <span class="icon--svg icon--svg--black-stroke icon--search" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill-rule="evenodd">
+                                <circle cx="7.5" cy="7.5" r="6.5"></circle>
+                                <path d="M15 14l3.536 3.536"></path>
+                            </svg>
+                            </span>
+                        </div>
+                        <div role="combobox" aria-haspopup="listbox" aria-owns="react-autowhatever-1" aria-expanded="false" class="position-relative typeahead__container">
+                            <input type="text" style="color: black;" value class=" typeahead__input" aria-autocomplete="list" autocomplete="off" matInput (keyup)="filtrar($event)" placeholder="Buscar...">
+                            <div id="react-autowhatever-1" role="listbox" class="typeahead__suggestions-container"></div>
+                        </div>
+                    </div>
+                    <div></div><div></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <div class="derecha col-12 text-right">
+                            <button type="button" mat-raised-button color="warn" triggers="mouseenter:mouseleave" routerLink="/home">
+                                <div class="innerFill">
+                                    <span><b>Volver</b></span>
+                                </div></button>
+                        </div>
+                        <diV class="featured__data"></diV>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><br>
+<section class="page__component page__component--characters page__component--content_grid section__color__light" data-top-component="content_grid">
+    <div class="content-grid content-grid--light">
+        <div *ngIf="dataSH !== null && validador" class="grid-base grid__6">
+            <div class="mvl-card mvl-card--explore" *ngFor="let name of dataSH">
+                <a class="explore__link">
+                    <div class="card-thumb-frame">
+                        <figure class="img__wrapper">
+                           <span><img mvl-type="explore" [src]="name.superHeroe" class="card-thumb-frame__thumbnail img__blur"></span>
+                        </figure>
+                    </div>
+                    <div class="card-body is-sliding">
+                        <p class="card-body__headline">{{ (name.nombreSuperHeroe | slice:0:20) + (name.nombreSuperHeroe.length > 20 ? '...' : '') }}</p>
+                        <div class="card-footer">
+                            <p class="card-footer__secondary-text"></p>
+                            <p class="card-footer__micro-description"></p>
+                        </div>
+                    </div>
+                </a>
+            </div>              
+        </div>
+    </div>
+</section>

@@ -8,7 +8,7 @@
 
 .loading-mask { 
     margin: auto;
-    background-image: url('/assets/images/portal.png');
+    background-image: url('/assets/img/banner/bannerSuperHeroes.jpg');
     background-position: center;
     background-size: 300px;
     width: 300px;
@@ -46,8 +46,8 @@
   }
 
 html, body { height: 100%; }
-body { 
+.backgroundFull { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
-    background-color: #37474F;
+    background-image: url('/assets/img/banner/banner4.jpg') !important;
 }
