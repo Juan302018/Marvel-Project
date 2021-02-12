@@ -1,11 +1,12 @@
 <router-outlet></router-outlet>
 <div class="example-header">
   <mat-form-field>
-    <input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar Comic">
+    <input matInput (keyup)="filtrar($event)" placeholder="Buscar Comic">
   </mat-form-field>
 </div>
 <div class="contenedor" *ngIf="comics != null" >
-  <mat-card  class="tarjeta"  *ngFor="let card of comics">
+  <div class="content-grid" >
+  <mat-card  class="tarjeta"  *ngFor="let card of comics" >
     <mat-card-header>
       <mat-card-title>Nombre Comic:{{ card.nombreComic }}</mat-card-title>
       <mat-card-subtitle>Tomo:{{ card.tomoComic }}</mat-card-subtitle>
@@ -13,9 +14,7 @@
     <mat-card-content>
       <p>Argumento:{{ card.argumentoComic }}</p>
     </mat-card-content>
-    <!-- <mat-card-actions>
-        <button mat-flat-button (click)="recargar()" color="primary">Otra persona?</button>
-      </mat-card-actions>-->
   </mat-card>
+</div>
 </div>
 

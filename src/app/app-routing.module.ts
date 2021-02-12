@@ -28,7 +28,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'comics', component: ComicsComponent
+    path: 'comics', component: ComicsComponent,
   },
 
   {

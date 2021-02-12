@@ -2,10 +2,11 @@
 
 <div class="example-header">
   <mat-form-field>
-    <input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar Pelicula">
+    <input matInput (keyup)="filtrar($event)" placeholder="Buscar Pelicula">
   </mat-form-field>
 </div>
 <div class="contenedor" *ngIf="peliculas!=null">
+  <div class="content-grid" >
     <mat-card class="tarjeta" *ngFor="let card of peliculas">
       <mat-card-header>
         <mat-card-title>Nombre Pelicula:{{ card.nombrePelicula }}</mat-card-title>
@@ -14,9 +15,9 @@
       <mat-card-content>
         <p>Argumento:{{card.argumentoPelicula}}</p>
       </mat-card-content>
-     <!-- <mat-card-actions>
-        <button mat-flat-button (click)="recargar()" color="primary">Otra persona?</button>
-      </mat-card-actions>-->
     </mat-card>
   </div>
-<br>
+</div>
+  <button mat-fab color="accent" style="float: right; margin-right: 20px" routerLink='/peliculas/nuevo'>
+    <mat-icon>create</mat-icon>
+  </button>
