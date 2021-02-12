@@ -13,29 +13,27 @@ import { MatSnackBar } from '@angular/material';
 export class ComicdescComponent implements OnInit {
 
   comic: Comic;
+  idComic:number;
   form: FormGroup;
   constructor(private comicsService: ComicsService,private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.comic = new Comic();
-    this.form = new FormGroup({
-     nombre: new FormControl(''),
-     tomo: new FormControl(''),
-     argumento: new FormControl('')
-    })
+    this.encontrar(this.idComic);
   }
-  insertarComic() {
-
-    this.comic.nombreComic = this.form.value['nombre'];
-    this.comic.tomoComic = this.form.value['tomo'];
-    this.comic.argumentoComic = this.form.value['argumento'];
-    this.comicsService.registrar(this.comic).pipe(switchMap(() => {
-      return this.comicsService.listar();
-    })).subscribe(data => {
-      this.comicsService.comicCambio.next(data);
-      this.comicsService.mensajeCambio.next("Se registró un comic");
+  encontrar(id:number){
+    this.comicsService.encontrarPorId(this.idComic).subscribe(data => {
+     let id = data.idComic;
+     let nombre = data.nombreComic;
+     let tomo = data.tomoComic;
+     let argumento = data.argumentoComic;
+     this.form = new FormGroup({
+     'id':new FormControl(id),
+    'nombre':new FormControl(nombre),
+    'tomo':new FormControl(tomo),
+    'argumento':new FormControl(argumento)
     });
-  this.router.navigate(['comics']);
-}
+    });
+  }
+   
   }
 

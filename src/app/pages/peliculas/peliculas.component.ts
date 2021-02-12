@@ -11,10 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PeliculasComponent implements OnInit {
   peliculas:Pelicula[];
-  nombrePeli:string;
-  argumento:string;
-  secuela:boolean;
-  dataSource: MatTableDataSource<Pelicula>;
+  public pelisFiltrado =[];
+  public pelisTotal =[];
 
   constructor(private peliculasService: PeliculasService,
     private toastrService: ToastrService, private snackBar: MatSnackBar) { }
@@ -38,11 +36,19 @@ export class PeliculasComponent implements OnInit {
         );
         swal.close();
       }
-      
+      this.pelisFiltrado = [...this.peliculas];
+      this.pelisTotal = [...this.peliculas];
   });  }
 
-  filtrar(valor:string){
-    this.dataSource.filter = valor.trim().toLowerCase();
+  filtrar(event){
+    const busquedaPelis = event.target.value.toString().toLowerCase().trim();
+    this.pelisFiltrado = [];
+    this.pelisTotal.forEach((item) => {
+      if (item.nombrePelicula.toLowerCase().indexOf(busquedaPelis) !== -1 || busquedaPelis=== '') 
+      {
+        this.pelisFiltrado.push(item);
   }
-
+});
+   this.peliculas = this.pelisFiltrado;
+}
 }

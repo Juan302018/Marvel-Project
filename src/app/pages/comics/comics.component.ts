@@ -21,13 +21,6 @@ export class ComicsComponent implements OnInit {
   comics: Comic[];
   public comicsFiltrado = [];
   public comicsTotal = [];
-  nomComic: string;
-  tomComic: string;
-  argComic: string;
-  dataSource: MatTableDataSource<Comic>;
-  // @ViewChild(MatPaginator,{static:true})
-  // paginator:MatPaginator;
-  // @ViewChild(MatSort,{static:true}) sort: MatSort;
   constructor(
     private comicService: ComicsService,
     private toastrService: ToastrService,
@@ -35,11 +28,6 @@ export class ComicsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.comicService.comicCambio.subscribe((data) => {
-      this.dataSource = new MatTableDataSource(data);
-      // this.dataSource.paginator = this.paginator;
-      // this.dataSource.sort = this.sort;
-    });
     this.listarComics();
   }
 
@@ -67,18 +55,17 @@ export class ComicsComponent implements OnInit {
     });
   }
 
-  filtrar(valor: string) {
-    const busquedaComics = valor.trim().toLowerCase();
+  filtrar(event) {
+    const busquedaComics =  event.target.value.toString().toLowerCase().trim();
     this.comicsFiltrado = [];
     this.comicsTotal.forEach((item) => {
-      if (
-        item.nombreComic.toLowerCase().indexOf(busquedaComics) !== -1 ||
-        busquedaComics === ''
-      ) {
-        this.comicsFiltrado.push(item);
-      }
+     if (
+     item.nombreComic.toLowerCase().indexOf(busquedaComics) !== -1 ||
+     busquedaComics === ''
+    ) {
+    this.comicsFiltrado.push(item);
+    }
     });
-    // Si no serve lo comentas y dejas sólo el arreglo de Arriba la verdada no entiendo para que ocupas el this.dataSource.filter
-    this.dataSource.filter = this.comicsFiltrado.toString();
+    this.comics = this.comicsFiltrado;
   }
 }

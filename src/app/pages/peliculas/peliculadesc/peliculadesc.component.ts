@@ -12,29 +12,27 @@ import { MatSnackBar } from '@angular/material';
 })
 export class PeliculadescComponent implements OnInit {
  pelicula:Pelicula;
+ idPelicula:number;
  form: FormGroup;
   constructor(private peliculasService:PeliculasService,private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-   this.pelicula = new Pelicula();
-   this.form = new FormGroup({
-    nombre: new FormControl(''),
-    secuela: new FormControl(true?'si':'no'),
-    argumento: new FormControl('')
-   })
+    this.encontrar(this.idPelicula);
   }
-  insertarPeliculas(){
-
-    this.pelicula.nombrePelicula = this.form.value['nombre'];
-    this.pelicula.esSecuela = this.form.value['tomo'];
-    this.pelicula.argumentoPelicula = this.form.value['argumento'];
-    this.peliculasService.registrar(this.pelicula).pipe(switchMap(() => {
-      return this.peliculasService.listar();
-    })).subscribe(data => {
-      this.peliculasService.PelculaCambio.next(data);
-      this.peliculasService.mensajeCambio.next("Se registró una pelicula");
+  encontrar(idPeli:number){
+   this.peliculasService.encontrarPorId(this.idPelicula)
+   .subscribe(data => {
+    let id = data.idPelicula;
+    let nombre = data.nombrePelicula;
+    let secuela = data.esSecuela;
+    let argumento = data.argumentoPelicula;
+    this.form = new FormGroup({
+    'id':new FormControl(id),
+    'nombre':new FormControl(nombre),
+    'secuela':new FormControl(secuela),
+    'argumento':new FormControl(argumento)
     });
-  this.router.navigate(['peliculas']);
-}
+   });
+  }
 
 }

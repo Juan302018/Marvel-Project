@@ -24,8 +24,8 @@ export class PeliculasService {
     )
       );
   }
-  registrar(pelicula:Pelicula) {
-    return this.http.post(this.url,pelicula);
+  encontrarPorId(idPelicula:number) {
+    return this.http.get<Pelicula>(`${this.url}/${idPelicula}`);
   }
   
 

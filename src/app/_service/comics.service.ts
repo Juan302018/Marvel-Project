@@ -23,8 +23,8 @@ export class ComicsService {
     )
       );
   }
-  registrar(comic:Comic) {
-    return this.http.post(this.url,comic);
+  encontrarPorId(idComic:number){
+    return this.http.get<Comic>(`${this.url}/${idComic}`);
     }
 
 }

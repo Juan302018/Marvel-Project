@@ -6,6 +6,7 @@
     min-width: 400px;
     max-width: 600px;
     margin: 10px;
+  
 }
 
 .contenedor {
@@ -13,4 +14,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.content-grid  {
+    grid-template-columns: repeat(auto-fill,minmax(31.66%,1fr));
 }

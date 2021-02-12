@@ -1,10 +1,11 @@
 <router-outlet></router-outlet>
 <div class="example-header">
   <mat-form-field>
-    <input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar Comic">
+    <input matInput (keyup)="filtrar($event)" placeholder="Buscar Comic">
   </mat-form-field>
 </div>
 <div class="contenedor" *ngIf="comics != null" >
+  <div class="content-grid" >
   <mat-card  class="tarjeta"  *ngFor="let card of comics" >
     <mat-card-header>
       <mat-card-title>Nombre Comic:{{ card.nombreComic }}</mat-card-title>
@@ -15,7 +16,5 @@
     </mat-card-content>
   </mat-card>
 </div>
-<button mat-fab color="accent" style="float: right; margin-right: 20px" routerLink='/comics/nuevo'>
-  <mat-icon>create</mat-icon>
-</button>
+</div>
 
